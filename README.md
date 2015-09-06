@@ -25,7 +25,7 @@ Android端使用Retrofit实现与RestAPI后台进行数据交互
 		
 			if(instance == null) {
 				synchronized (RestAdapterManager.class) {
-					if (instance == null)
+					if (instance == null){
 						
 						gson = new GsonBuilder()
 							.registerTypeAdapterFactory(new ItemTypeAdapterFactory())
@@ -35,6 +35,7 @@ Android端使用Retrofit实现与RestAPI后台进行数据交互
 							.setEndpoint(HttpAPIUtil.getInstance().getEndpoint())
 							.setConverter(new GsonConverter(gson))
 							.build();
+					}
 				}
 			}
 			
