@@ -24,7 +24,7 @@ public class RestAdapterManager {
 		
 		if(instance == null) {
 			synchronized (RestAdapterManager.class) {
-				if (instance == null)
+				if (instance == null){
 					
 					gson = new GsonBuilder()
 						.registerTypeAdapterFactory(new ItemTypeAdapterFactory())
@@ -34,6 +34,7 @@ public class RestAdapterManager {
 						.setEndpoint(HttpAPIUtil.getInstance().getEndpoint())
 						.setConverter(new GsonConverter(gson))
 						.build();
+				}
 			}
 		}
 		
