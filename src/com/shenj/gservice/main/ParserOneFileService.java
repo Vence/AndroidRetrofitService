@@ -53,16 +53,20 @@ public class ParserOneFileService {
 		}
 		
 		String httpService = outputPath + "/"  + pojoName + "HttpService.java";
-		String servie = outputPath + "/"  +  pojoName  + "Service.java";
+		String service = outputPath + "/"  +  pojoName  + "Service.java";
 		String serviceImpl = outputPath + "/"  +  pojoName + "ServiceImpl.java";
 		
-		SJFileWriter writer  = new JavaFileWriter(httpService  ,  getHttpServiceContent());
+		String httpServicePackage = this.getPackage(httpService);
+		String servicePackage = this.getPackage(service);
+		String serviceImplPackage = this.getPackage(serviceImpl);
+		
+		SJFileWriter writer  = new JavaFileWriter(httpService  ,  getHttpServiceContent(httpServicePackage));
 		boolean b1 = writer.writeToFile();
 		
-		writer  = new JavaFileWriter(servie  ,  getServiceContent());
+		writer  = new JavaFileWriter(service  ,  getServiceContent(servicePackage));
 		boolean b2 =writer.writeToFile();
 		
-		writer  = new JavaFileWriter(serviceImpl  ,  getServiceImplContent());
+		writer  = new JavaFileWriter(serviceImpl  ,  getServiceImplContent(serviceImplPackage));
 		boolean b3 =writer.writeToFile();
 		
 		return b1 && b2 && b3;
@@ -74,9 +78,9 @@ public class ParserOneFileService {
 	 * @date 2015-8-27
 	 * @return
 	 */
-	private String getHttpServiceContent(){
+	private String getHttpServiceContent(String packageInfo){
 		
-		IFileOutput output = new HttpServiceFileOutput(this.isSync);
+		IFileOutput output = new HttpServiceFileOutput(this.isSync , packageInfo);
 		
 		return output.getFileContent(methods, pojoName);
 		
@@ -88,8 +92,8 @@ public class ParserOneFileService {
 	 * @date 2015-8-27
 	 * @return
 	 */
-	private String getServiceContent(){
-		IFileOutput output = new ServiceFileOutput(this.isSync);
+	private String getServiceContent(String packageInfo){
+		IFileOutput output = new ServiceFileOutput(this.isSync , packageInfo);
 		
 		return output.getFileContent(methods, pojoName);
 	}
@@ -100,9 +104,9 @@ public class ParserOneFileService {
 	 * @date 2015-8-27
 	 * @return
 	 */
-	private String getServiceImplContent(){
+	private String getServiceImplContent(String packageInfo){
 		
-		IFileOutput output = new ServiceImplFileOutput(this.isSync);
+		IFileOutput output = new ServiceImplFileOutput(this.isSync , packageInfo);
 		
 		return output.getFileContent(methods, pojoName);
 	}
@@ -127,6 +131,21 @@ public class ParserOneFileService {
 		
 		return rets;
 		
+	}
+	
+	public String getPackage(String filePath){
+		
+		filePath = filePath.replaceAll("\\\\", "/");
+		
+		filePath  = filePath.substring(filePath.indexOf(":")+ 1 ,
+				filePath.lastIndexOf("/"));
+		
+		if(filePath.startsWith("/"))
+			filePath = filePath.substring(1);
+		
+		filePath = filePath.replaceAll("/", ".");
+		
+		return filePath;
 	}
 	
 	public static void main(String[] args) {

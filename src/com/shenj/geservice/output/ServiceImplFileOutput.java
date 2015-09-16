@@ -16,10 +16,12 @@ import com.shenj.gservice.util.MainUtil;
 public class ServiceImplFileOutput implements IFileOutput{
 	
 	private boolean isSync;	//是否同步
+	private String packageInfo;
 	
-	public ServiceImplFileOutput(boolean isSync) {
+	public ServiceImplFileOutput(boolean isSync, String packageInfo) {
 		super();
 		this.isSync = isSync;
+		this.packageInfo = packageInfo;
 	}
 
 	@Override
@@ -35,7 +37,7 @@ public class ServiceImplFileOutput implements IFileOutput{
 		StringBuffer buf = new StringBuffer();
 		
 		// 包名
-		buf.append("package " + pojoName.toLowerCase()).append(";\r\n\r\n");
+		buf.append("package " + packageInfo).append(";\r\n\r\n");
 		
 		// 包引入
 		buf.append("import java.util.List;").append("\r\n")

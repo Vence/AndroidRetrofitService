@@ -11,5 +11,5 @@ public abstract class SJFileWriter {
 	}
 
 	public abstract boolean writeToFile() ;
-
+	
 }
