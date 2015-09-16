@@ -94,9 +94,12 @@ public class ServiceImplFileOutput implements IFileOutput{
 		buf.append(method.getMethodName()).append("(");
 		
 		// 方法的参数
-		for (SJMethodParam param : method.getParams()) {
-			buf.append(param.getParamType()).append(" ").append(param.getValueName())
-			.append(",");
+		for (int i = 0 ; i <  method.getParams().size(); i ++) {
+			SJMethodParam param = method.getParams().get(i);
+			
+			buf.append(param.getParamType()).append(" ").append(param.getValueName());
+			if (i != method.getParams().size()-1)
+				buf.append(",");
 		}
 		
 		if (!this.isSync) {
