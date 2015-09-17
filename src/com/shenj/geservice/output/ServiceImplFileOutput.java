@@ -107,15 +107,20 @@ public class ServiceImplFileOutput implements IFileOutput{
 		if (!this.isSync) {
 			// 方法的参数 - 最后一个固定为回调
 			if (method.getHasReturn())
-				buf.append("Callback<").append(method.getReturnType()).append("> cb");
+				buf.append(",Callback<").append(method.getReturnType()).append("> cb");
 			else 
-				buf.append("Callback").append(" cb");
+				buf.append(",Callback").append(" cb");
 		}
 		
 		buf.append("){").append("\r\n");
 		
 		// 方法体
 		buf.append(MainUtil.INDENTATION).append(MainUtil.INDENTATION);
+		
+		if (this.isSync && !method.getReturnType().equals("void")) {
+			buf.append("return ");
+		}
+		
 		buf.append(httpService).append(".").append(method.getMethodName())
 		.append("(");
 		

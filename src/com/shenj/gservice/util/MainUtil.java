@@ -4,7 +4,7 @@ import java.util.Stack;
 
 public class MainUtil {
 	
-	public static final String INDENTATION =  "	 ";
+	public static final String INDENTATION =  "	";
 
 	/**
 	 * 获取文件名
