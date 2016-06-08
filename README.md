@@ -59,7 +59,7 @@ LoginServiceImpl
 	private LoginHttpService loginHttpService = 
 		RestAdapterManager.getInstance().create(LoginHttpService.class);
 
-LoginHttpService是给Retrofit框架使用的，内部用**动态代理**实现了这个接口的具体实现，所以这里不需要去写LoginHttpService的实现。(有关动态代理知识，请参见[http://vence.gitcafe.io/blog/2015/08/04/java-proxy-info/](http://vence.gitcafe.io/blog/2015/08/04/java-proxy-info/))
+LoginHttpService是给Retrofit框架使用的，内部用**动态代理**实现了这个接口的具体实现，所以这里不需要去写LoginHttpService的实现。(有关动态代理知识，请参见~~[http://vence.gitcafe.io/blog/2015/08/04/java-proxy-info/](http://vence.gitcafe.io/blog/2015/08/04/java-proxy-info/)~~ [http://vence.coding.me/2016/04/21/javaproxy/](http://vence.coding.me/2016/04/21/javaproxy/))
 
 在LoginServiceImpl 中调用了RestAdapter去创建LoginHttpService的一个实现
 
